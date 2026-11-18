@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SIMTELE-WEB: simulador educativo de prevención y monitoreo de transporte por cable.">
+  <title>SIMTELE-WEB | Panel interactivo didáctico</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <!-- PANTALLA DE ACCESO: es una vista de SIMTELE-WEB, no de Google. -->
+  <div id="pantalla-acceso" class="auth-screen">
+    <div class="auth-layout">
+      <div class="auth-brand" aria-label="SIMTELE-WEB">
+        <div class="auth-logo" aria-hidden="true">◆</div>
+        <span class="eyebrow">PROYECTO DE PROGRAMACIÓN WEB I</span>
+        <h1>SIMTELE<span class="accent">-WEB</span></h1>
+        <p>Panel didáctico de prevención y monitoreo de Mi Teleférico</p>
+      </div>
+
+      <div class="auth-card">
+        <p class="auth-kicker">ACCESO A LA APLICACIÓN</p>
+        <h2>Bienvenido</h2>
+        <p class="auth-subtitle">Inicia sesión para acceder a los cuatro módulos interactivos.</p>
+
+        <!-- No se solicitan contraseñas de Google en esta página. -->
+        <button id="btn-google" type="button" class="button google-button" disabled>
+          <span class="google-g" aria-hidden="true">G</span>
+          <span>Continuar con Google</span>
+        </button>
+        <p id="estado-google" class="google-help" role="status" aria-live="polite">Comprobando configuración de Google…</p>
+
+        <div class="auth-divider"><span>O utiliza el acceso de clase</span></div>
+        <button id="btn-demo" type="button" class="button button-primary button-block">Entrar en modo demostración</button>
+        <p id="mensaje-acceso" class="feedback" role="status" aria-live="polite"></p>
+        <p class="auth-note">El modo demostración es local y no comprueba identidad. Para acceder con una cuenta de Google real se debe configurar Google Cloud.</p>
+      </div>
+      <p class="auth-legal"><strong>Aviso didáctico:</strong> datos, umbrales y lecturas simulados. Esta página no es un servicio oficial de Mi Teleférico.</p>
+    </div>
+  </div>
+
+  <!-- Toda la aplicación queda oculta hasta que haya una sesión de acceso. -->
+  <div id="app-protegida" hidden>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="header-top">
+        <div class="brand-line">
+          <span class="brand-icon" aria-hidden="true">◆</span>
+          <span class="eyebrow">PROGRAMACIÓN WEB I · PROYECTO EDUCATIVO</span>
+        </div>
+        <div class="account-controls" aria-label="Cuenta actual">
+          <span id="avatar-usuario" class="account-avatar" aria-hidden="true">U</span>
+          <div class="account-details">
+            <strong id="usuario-nombre">Usuario</strong>
+            <span id="usuario-correo">Sesión de demostración</span>
+          </div>
+          <button id="btn-cerrar-sesion" type="button" class="button button-outline button-small">Cerrar sesión</button>
+        </div>
+      </div>
+      <h1>SIMTELE<span class="accent">-WEB</span></h1>
+      <p class="hero-description">Panel interactivo de prevención y monitoreo de Mi Teleférico</p>
+      <p class="hero-secondary">Explora cuatro simulaciones, registra información y observa los resultados en tiempo real.</p>
+      <div class="disclaimer" role="note">
+        <strong>AVISO DIDÁCTICO OBLIGATORIO:</strong> Todos los datos, mediciones, rangos y umbrales de esta página
+        son <strong>simulaciones educativas</strong>. No representan límites operativos reales, criterios de
+        seguridad ni información oficial de Mi Teleférico.
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav" aria-label="Navegación entre los cuatro módulos">
+    <div class="container nav-links">
+      <a href="#detencion"><span aria-hidden="true">01</span> Detención</a>
+      <a href="#mantenimiento"><span aria-hidden="true">02</span> Mantenimiento</a>
+      <a href="#viento"><span aria-hidden="true">03</span> Viento</a>
+      <a href="#sensores"><span aria-hidden="true">04</span> Sensores</a>
+    </div>
+  </nav>
+
+  <main id="contenido" class="container main-content">
+    <div class="intro">
+      <p class="eyebrow dark">CUATRO MÓDULOS INTERACTIVOS</p>
+      <p>Ingresa datos hipotéticos en cada formulario. Todos los cálculos se realizan en tu navegador, sin recargar la página.</p>
+    </div>
+
+    <section class="module" id="detencion" aria-labelledby="titulo-detencion">
+      <div class="module-header">
+        <span class="module-number" aria-hidden="true">01</span>
+        <div>
+          <h2 id="titulo-detencion">Detención de emergencia</h2>
+          <p>Calcula la distancia recorrida durante un tiempo hipotético de reacción.</p>
+        </div>
+      </div>
+      <div class="module-grid">
+        <div class="panel">
+          <h3>Datos de la simulación</h3>
+          <form id="form-detencion" novalidate>
+            <div class="field">
+              <label for="velocidad">Velocidad (km/h)</label>
+              <input id="velocidad" name="velocidad" type="text" inputmode="decimal" autocomplete="off" placeholder="Ej.: 72" aria-describedby="ayuda-velocidad">
+              <small id="ayuda-velocidad">Número entre 0 y 120 km/h, solo para este ejercicio.</small>
+            </div>
+            <div class="field">
+              <label for="tiempo">Tiempo de reacción (s)</label>
+              <input id="tiempo" name="tiempo" type="text" inputmode="decimal" autocomplete="off" placeholder="Ej.: 3" aria-describedby="ayuda-tiempo">
+              <small id="ayuda-tiempo">Número entre 0 y 60 segundos.</small>
+            </div>
+            <button class="button button-primary" type="submit">Calcular distancia</button>
+            <p id="mensaje-detencion" class="feedback" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="panel panel-muted">
+          <h3>Resultado</h3>
+          <p class="formula">d = (v / 3.6) × t</p>
+          <p class="help-text">Se convierte la velocidad de km/h a m/s y se multiplica por el tiempo.</p>
+          <div class="threshold"><strong>Umbral ficticio:</strong> hasta 50 m = dentro de la referencia didáctica; más de 50 m = supera la referencia didáctica.</div>
+          <div id="resultado-detencion" class="result-panel" role="status" aria-live="polite">
+            Completa los datos para mostrar la distancia calculada.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" id="mantenimiento" aria-labelledby="titulo-mantenimiento">
+      <div class="module-header">
+        <span class="module-number" aria-hidden="true">02</span>
+        <div>
+          <h2 id="titulo-mantenimiento">Registro de mantenimiento</h2>
+          <p>Agrega componentes ficticios, visualiza su estado y elimina registros.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Nuevo componente</h3>
+        <form id="form-mantenimiento" class="form-grid" novalidate>
+          <div class="field">
+            <label for="componente">Nombre del componente</label>
+            <input id="componente" name="componente" type="text" maxlength="60" autocomplete="off" placeholder="Ej.: Polea A" aria-describedby="ayuda-componente">
+            <small id="ayuda-componente">Escribe de 1 a 60 caracteres.</small>
+          </div>
+          <div class="field">
+            <label for="horas">Horas de uso</label>
+            <input id="horas" name="horas" type="text" inputmode="decimal" autocomplete="off" placeholder="Ej.: 150" aria-describedby="ayuda-horas">
+            <small id="ayuda-horas">Rango ficticio: 0 a 100 000 horas.</small>
+          </div>
+          <div class="field">
+            <label for="estado">Estado del componente</label>
+            <select id="estado" name="estado" aria-describedby="ayuda-estado">
+              <option value="">Selecciona un estado</option>
+              <option value="normal">Normal</option>
+              <option value="revision">Revisión</option>
+              <option value="urgente">Urgente</option>
+            </select>
+            <small id="ayuda-estado">Clasificación ficticia seleccionada por el usuario.</small>
+          </div>
+          <div class="form-action">
+            <button class="button button-primary" type="submit">Agregar componente</button>
+          </div>
+        </form>
+        <p id="mensaje-mantenimiento" class="feedback" role="status" aria-live="polite"></p>
+      </div>
+      <div class="panel table-panel">
+        <div class="table-heading">
+          <h3>Componentes registrados</h3>
+          <span class="count">Total: <output id="total-mantenimiento">0</output></span>
+        </div>
+        <div class="table-scroll" tabindex="0" aria-label="Tabla de mantenimiento, desplazable horizontalmente en pantallas pequeñas">
+          <table>
+            <caption>Tabla dinámica de mantenimiento simulado</caption>
+            <thead><tr><th scope="col">Componente</th><th scope="col">Horas</th><th scope="col">Estado</th><th scope="col">Acción</th></tr></thead>
+            <tbody id="tabla-mantenimiento">
+              <tr><td colspan="4" class="empty-table">Todavía no hay componentes registrados.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" id="viento" aria-labelledby="titulo-viento">
+      <div class="module-header">
+        <span class="module-number" aria-hidden="true">03</span>
+        <div>
+          <h2 id="titulo-viento">Viento y oscilación</h2>
+          <p>Registra exactamente cinco mediciones simuladas, calcula su promedio y su máximo.</p>
+        </div>
+      </div>
+      <div class="module-grid">
+        <div class="panel">
+          <h3>Cinco mediciones</h3>
+          <p class="help-text">Introduce cinco intensidades ficticias entre 0 y 120 unidades simuladas. Se permiten decimales.</p>
+          <form id="form-viento" novalidate>
+            <div class="measure-grid">
+              <div class="field"><label for="viento-1">Medición 1</label><input class="wind-input" id="viento-1" type="text" inputmode="decimal" autocomplete="off" placeholder="10" aria-describedby="ayuda-viento"></div>
+              <div class="field"><label for="viento-2">Medición 2</label><input class="wind-input" id="viento-2" type="text" inputmode="decimal" autocomplete="off" placeholder="20" aria-describedby="ayuda-viento"></div>
+              <div class="field"><label for="viento-3">Medición 3</label><input class="wind-input" id="viento-3" type="text" inputmode="decimal" autocomplete="off" placeholder="30" aria-describedby="ayuda-viento"></div>
+              <div class="field"><label for="viento-4">Medición 4</label><input class="wind-input" id="viento-4" type="text" inputmode="decimal" autocomplete="off" placeholder="40" aria-describedby="ayuda-viento"></div>
+              <div class="field"><label for="viento-5">Medición 5</label><input class="wind-input" id="viento-5" type="text" inputmode="decimal" autocomplete="off" placeholder="50" aria-describedby="ayuda-viento"></div>
+            </div>
+            <small id="ayuda-viento" class="group-help">Se requieren las cinco mediciones, cada una entre 0 y 120.</small>
+            <button class="button button-primary" type="submit">Analizar mediciones</button>
+            <p id="mensaje-viento" class="feedback" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="panel panel-muted">
+          <h3>Análisis descriptivo</h3>
+          <div class="threshold"><strong>Umbrales didácticos según el promedio:</strong> bajo: 0 a menos de 20; moderado: 20 a menos de 40; alto: 40 a 120 unidades simuladas.</div>
+          <div id="resultado-viento" class="result-panel" role="status" aria-live="polite">
+            Registra cinco mediciones para obtener el análisis.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" id="sensores" aria-labelledby="titulo-sensores">
+      <div class="module-header">
+        <span class="module-number" aria-hidden="true">04</span>
+        <div>
+          <h2 id="titulo-sensores">Validación de sensores</h2>
+          <p>Comprueba el código de cada sensor, su tipo y una lectura ficticia antes de registrarlo.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Nuevo sensor</h3>
+        <form id="form-sensores" class="form-grid" novalidate>
+          <div class="field">
+            <label for="codigo-sensor">Código de sensor</label>
+            <input id="codigo-sensor" name="codigo-sensor" type="text" maxlength="20" autocomplete="off" placeholder="SEN-001" aria-describedby="ayuda-codigo">
+            <small id="ayuda-codigo">Formato obligatorio: SEN- seguido de tres dígitos. Ej.: SEN-001.</small>
+          </div>
+          <div class="field">
+            <label for="tipo-sensor">Tipo de sensor</label>
+            <select id="tipo-sensor" name="tipo-sensor" aria-describedby="ayuda-tipo">
+              <option value="">Selecciona un tipo</option>
+              <option value="Temperatura">Temperatura</option>
+              <option value="Vibración">Vibración</option>
+              <option value="Oscilación">Oscilación</option>
+            </select>
+            <small id="ayuda-tipo">Categorías descriptivas para el ejercicio.</small>
+          </div>
+          <div class="field">
+            <label for="lectura">Lectura simulada</label>
+            <input id="lectura" name="lectura" type="text" inputmode="decimal" autocomplete="off" placeholder="Ej.: 45.5" aria-describedby="ayuda-lectura">
+            <small id="ayuda-lectura">Rango ficticio: de 0 a 100 unidades didácticas, independientemente del tipo.</small>
+          </div>
+          <div class="form-action">
+            <button class="button button-primary" type="submit">Registrar sensor</button>
+          </div>
+        </form>
+        <p id="mensaje-sensores" class="feedback" role="status" aria-live="polite"></p>
+      </div>
+      <div class="panel table-panel">
+        <div class="table-heading">
+          <h3>Sensores registrados</h3>
+          <span class="count">Total: <output id="total-sensores">0</output></span>
+        </div>
+        <div class="table-scroll" tabindex="0" aria-label="Tabla de sensores, desplazable horizontalmente en pantallas pequeñas">
+          <table>
+            <caption>Tabla de lecturas de sensores simulados</caption>
+            <thead><tr><th scope="col">Código</th><th scope="col">Tipo</th><th scope="col">Lectura</th><th scope="col">Acción</th></tr></thead>
+            <tbody id="tabla-sensores">
+              <tr><td colspan="4" class="empty-table">Todavía no hay sensores registrados.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <strong>SIMTELE-WEB · Programación Web I</strong>
+        <p>Aplicación académica local. No vinculada oficialmente a Mi Teleférico.</p>
+        <p>Los registros se guardan en este navegador y se separan por usuario; no se sincronizan con Google.</p>
+      </div>
+      <div class="footer-actions">
+        <button id="limpiar-datos" class="button button-outline" type="button">Limpiar todos los datos guardados</button>
+        <p id="estado-almacenamiento" class="feedback footer-feedback" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </footer>
+  </div><!-- /#app-protegida -->
+  <script src="js/app.js"></script>
+</body>
+</html>
